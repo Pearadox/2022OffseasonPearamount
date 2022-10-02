@@ -58,12 +58,12 @@ public final class Constants {
         public static final double TURN_MOTOR_VCONVERSION = TURN_MOTOR_PCONVERSION / 60.0;
         public static final double KP_TURNING = 0.5;
 
-        public static final double DRIVETRAIN_MAX_SPEED = 6;
-        public static final double DRIVETRAIN_MAX_ANGULAR_SPEED = 5 * Math.PI;
+        public static final double DRIVETRAIN_MAX_SPEED = 4.0;
+        public static final double DRIVETRAIN_MAX_ANGULAR_SPEED = 3.5 * Math.PI;
 
         //Teleop constraints
         public static final double TELE_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 1;
-        public static final double TELE_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 1.5;
+        public static final double TELE_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 2;
         public static final double TELE_DRIVE_MAX_ACCELERATION = 3;
         public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION = 3;
 
@@ -95,6 +95,14 @@ public final class Constants {
     public static final class IntakeConstants{
         public static final int INTAKE_ID = 24;
         public static final int INTAKE_TOGGLE_ID = 25;
+
+        public static final double INTAKE_DEPLOY_HOLD = 0.11;
+        public static final double INTAKE_STOW_HOLD = -0.09;
+        public static final double INTAKE_DEPLOY_SPEED = 0.425;
+        public static final double INTAKE_STOW_SPEED = -0.5;
+  
+        public static final double INTAKE_DEPLOY_TIME = 0.57;
+        public static final double INTAKE_STOW_TIME = 0.37;
     }
 
     public static final class TransportConstants{
@@ -109,8 +117,8 @@ public final class Constants {
         public static final double MAXPERCENT = 0.4;
         public static final double ShooterAdjust = 1; //1.165
         
-        public static final double kS = 0.8571; //0.69004 0.84535
-        public static final double kV = 0.11619; //0.11811
-        public static final double kP = 0.18798; //0.04257 and 0.0307
+        public static final double kS = 0.0; //0.8571
+        public static final double kV = 0.11619;
+        public static final double kP = 0.18798;
     }
 }

@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     RobotContainer.drivetrain.setAllMode(true);
     RobotContainer.drivetrain.resetAllEncoders();
-    // RobotContainer.transport.setDefaultCommand(new TransportIn());
+    RobotContainer.transport.setDefaultCommand(new TransportIn());
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

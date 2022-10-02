@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import java.text.DecimalFormat;
+
 import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -61,6 +63,7 @@ public class Drivetrain extends SubsystemBase {
   private SlewRateLimiter turnLimiter = new SlewRateLimiter(SwerveConstants.TELE_DRIVE_MAX_ANGULAR_ACCELERATION);
 
   private Pigeon2 gyro = new Pigeon2(SwerveConstants.PIGEON_ID);
+  private double rates[] = new double[3];
   private SwerveDriveOdometry odometry = new SwerveDriveOdometry(SwerveConstants.DRIVE_KINEMATICS, new Rotation2d(0));
   
   private static final Drivetrain drivetrain = new Drivetrain();
@@ -84,9 +87,10 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     odometry.update(getHeadingRotation2d(), leftFront.getState(), rightFront.getState(), leftBack.getState(), rightBack.getState());
+    gyro.getRawGyro(rates);
     SmartDashboard.putNumber("Robot Angle", getHeading());
     SmartDashboard.putString("Pose", getPose().toString());
-    // SmartDashboard.putString("Angular Speed", new DecimalFormat("#.00").format((gyro.getRate() / 180)) + "pi rad/s");
+    SmartDashboard.putString("Angular Speed", new DecimalFormat("#.00").format((rates[2] / 180)) + "pi rad/s");
     SmartDashboard.putNumber("Hub Angle", getHubAngle());
   }
 
@@ -100,6 +104,10 @@ public class Drivetrain extends SubsystemBase {
       sideSpeed = Math.abs(sideSpeed) > 0.1 ? sideSpeed : 0;
       turnSpeed = Math.abs(turnSpeed) > 0.1 ? turnSpeed : 0;
     }
+
+    frontSpeed = RobotContainer.controller.getLeftTriggerAxis() > 0.9 ? frontSpeed * 0.6 : frontSpeed;
+    sideSpeed = RobotContainer.controller.getLeftTriggerAxis() > 0.9 ? sideSpeed * 0.6 : sideSpeed;
+    turnSpeed = RobotContainer.controller.getLeftTriggerAxis() > 0.9 ? turnSpeed * 0.6 : turnSpeed;
 
     frontSpeed = frontLimiter.calculate(frontSpeed) * SwerveConstants.TELE_DRIVE_MAX_SPEED;
     sideSpeed = sideLimiter.calculate(sideSpeed) * SwerveConstants.TELE_DRIVE_MAX_SPEED;

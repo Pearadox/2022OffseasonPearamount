@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.PearadoxSparkMax;
@@ -19,7 +20,7 @@ public class Transport extends SubsystemBase {
   public PearadoxSparkMax topMotor;
   public TalonFX feeder;
 
-  private boolean hasBall = false;
+  DigitalInput ballDetector = new DigitalInput(0);
 
   private static final Transport transport = new Transport();
 
@@ -40,6 +41,7 @@ public class Transport extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Top Transport Current", topMotor.getOutputCurrent());
     SmartDashboard.putNumber("Feeder Current", feeder.getSupplyCurrent());
+    SmartDashboard.putBoolean("Has Ball?", hasBall());
   }
 
   public void setSpeed(double speed){
@@ -57,7 +59,7 @@ public class Transport extends SubsystemBase {
   }
 
   public void transportIn(){
-    if(!hasBall){
+    if(!hasBall()){
       topMotor.set(0.45);
     }
     else{
@@ -79,24 +81,19 @@ public class Transport extends SubsystemBase {
 
   public void feederShoot(){
     topMotor.set(0.75);
-    // feeder.set(ControlMode.PercentOutput, 1);
-  }
-
-  
-  public void clearBall(){
-    hasBall = false;
-  }
-
-  public void detectBall(){
-    hasBall = true;
+    feeder.set(ControlMode.PercentOutput, 1);
   }
 
   public void feederHold(){
-    if(!hasBall){
+    if(!hasBall()){
       feeder.set(ControlMode.PercentOutput, -0.8);
     }
     else{
       feeder.set(ControlMode.PercentOutput, 0);
     }
+  }
+
+  public boolean hasBall(){
+    return !ballDetector.get();
   }
 }

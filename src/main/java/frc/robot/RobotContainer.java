@@ -16,19 +16,22 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.lib.drivers.EForwardableConnections;
 import frc.robot.Constants.SwerveConstants;
-import frc.robot.commands.IntakeIn;
+import frc.robot.commands.IntakeHold;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.ShooterRampUpVoltage;
 import frc.robot.commands.SwerveDrive;
+import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Transport;
+import frc.robot.subsystems.Shooter.Mode;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -45,9 +48,12 @@ public class RobotContainer {
 
   public static final XboxController controller = new XboxController(0);
   private final JoystickButton resetHeading_B = new JoystickButton(controller, XboxController.Button.kB.value);
-  private final JoystickButton run_Y = new JoystickButton(controller, XboxController.Button.kY.value);
-  private final JoystickButton run_X = new JoystickButton(controller, XboxController.Button.kX.value);
+  private final JoystickButton toggleMode_A = new JoystickButton(controller, XboxController.Button.kA.value);
+  private final JoystickButton X = new JoystickButton(controller, XboxController.Button.kX.value);
+  private final JoystickButton lowShoot_Y = new JoystickButton(controller, XboxController.Button.kY.value);
+  private final JoystickButton toggleIntake_LB = new JoystickButton(controller, XboxController.Button.kLeftBumper.value);
   private final JoystickButton shoot_RB = new JoystickButton(controller, XboxController.Button.kRightBumper.value);
+  private final JoystickButton toggleSystem_Start = new JoystickButton(controller, XboxController.Button.kStart.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -55,8 +61,8 @@ public class RobotContainer {
     portForwarding();
     configureButtonBindings();
     drivetrain.setDefaultCommand(new SwerveDrive());
-    intake.setDefaultCommand(new IntakeIn());
-    // shooter.setDefaultCommand(new ShooterRampUpVoltage());
+    intake.setDefaultCommand(new IntakeHold());
+    shooter.setDefaultCommand(new ShooterRampUpVoltage());
   }
 
   /**
@@ -66,11 +72,21 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    toggleMode_A.whenPressed(() -> shooter.toggleMode());
     resetHeading_B.whenPressed(() -> drivetrain.zeroHeading());
-    run_Y.whenPressed(new InstantCommand(() -> shooter.toggleMode()));
+    lowShoot_Y.whileHeld(new InstantCommand(() -> shooter.setMode(Mode.kFixedLow))
+    .andThen(new RunCommand(() -> transport.feederShoot())))
+    .whenReleased(new InstantCommand(() -> shooter.setMode(Mode.kAuto))
+    .andThen(new InstantCommand(() -> transport.stop())));
+    // lowShoot_Y.whileHeld(new RunCommand(() -> intake.setToggler(-1.0))).whenReleased(new InstantCommand(() -> intake.setToggler(0)));
+    // X.whileHeld(new RunCommand(() -> intake.setToggler(1.0))).whenReleased(new InstantCommand(() -> intake.setToggler(0)));
+    toggleIntake_LB.whenPressed(new ToggleIntake().withTimeout(0.4));
     shoot_RB.whileHeld(new Shoot())
-      .whenReleased(new InstantCommand(() -> transport.stop())
-      .andThen(() -> transport.clearBall()));
+      .whenReleased(new InstantCommand(() -> transport.stop()));
+    toggleSystem_Start.toggleWhenPressed(
+      new RunCommand(() -> transport.stop())
+      .alongWith(new RunCommand(() -> shooter.setSpeed(0)),
+                new RunCommand(() -> intake.stop())));
   }
 
   /**
