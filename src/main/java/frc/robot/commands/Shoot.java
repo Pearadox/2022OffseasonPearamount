@@ -19,9 +19,9 @@ public class Shoot extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      // new AutoAim().until(() -> Math.abs(RobotContainer.shooter.getSpeed() - RobotContainer.shooter.getTarget()) < 0.5
-      //                     && Math.abs(RobotContainer.shooter.llTable.getEntry("tx").getDouble(0)) < 0.5).withTimeout(2)
-      //                     .andThen(() -> RobotContainer.drivetrain.stopModules()),
+      new AutoAim().until(() -> Math.abs(RobotContainer.shooter.getSpeed() - RobotContainer.shooter.getTarget()) < 0.5
+                          && Math.abs(RobotContainer.shooter.llTable.getEntry("tx").getDouble(0)) < 0.5).withTimeout(2)
+                          .andThen(() -> RobotContainer.drivetrain.stopModules()),
       new InstantCommand(() -> RobotContainer.intake.setDeployed(false)),
       new WaitCommand(0.5)
         .andThen(new RunCommand(RobotContainer.transport::feederShoot, RobotContainer.transport)) 

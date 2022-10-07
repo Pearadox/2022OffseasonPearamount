@@ -22,11 +22,13 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.lib.drivers.EForwardableConnections;
 import frc.robot.Constants.SwerveConstants;
+import frc.robot.commands.AutoAim;
 import frc.robot.commands.IntakeHold;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.ShooterRampUpVoltage;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.ToggleIntake;
+import frc.robot.commands.TransportIn;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -74,12 +76,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     toggleMode_A.whenPressed(() -> shooter.toggleMode());
     resetHeading_B.whenPressed(() -> drivetrain.zeroHeading());
-    lowShoot_Y.whileHeld(new InstantCommand(() -> shooter.setMode(Mode.kFixedLow))
-    .andThen(new RunCommand(() -> transport.feederShoot())))
-    .whenReleased(new InstantCommand(() -> shooter.setMode(Mode.kAuto))
-    .andThen(new InstantCommand(() -> transport.stop())));
-    // lowShoot_Y.whileHeld(new RunCommand(() -> intake.setToggler(-1.0))).whenReleased(new InstantCommand(() -> intake.setToggler(0)));
-    // X.whileHeld(new RunCommand(() -> intake.setToggler(1.0))).whenReleased(new InstantCommand(() -> intake.setToggler(0)));
+    // lowShoot_Y.whileHeld(new InstantCommand(() -> shooter.setMode(Mode.kFixedLow))
+    // .andThen(new RunCommand(() -> transport.feederShoot())))
+    // .whenReleased(new InstantCommand(() -> shooter.setMode(Mode.kAuto))
+    // .andThen(new InstantCommand(() -> transport.stop())));
+    lowShoot_Y.whileHeld(new RunCommand(() -> intake.setToggler(-1.0))).whenReleased(new InstantCommand(() -> intake.setToggler(0)));
+    X.whileHeld(new RunCommand(() -> intake.setToggler(1.0))).whenReleased(new InstantCommand(() -> intake.setToggler(0)));
     toggleIntake_LB.whenPressed(new ToggleIntake().withTimeout(0.4));
     shoot_RB.whileHeld(new Shoot())
       .whenReleased(new InstantCommand(() -> transport.stop()));
@@ -172,10 +174,10 @@ public class RobotContainer {
       new InstantCommand(() -> drivetrain.resetOdometry(initialFiveBallPose)),
       FiveBallA,
       new InstantCommand(() -> drivetrain.stopModules()),
-      new WaitCommand(1),
+      new Shoot().withTimeout(2),
       FiveBallB,
       new InstantCommand(() -> drivetrain.stopModules()),
-      new WaitCommand(1),
+      new Shoot().withTimeout(2),
       FiveBallC,
       new InstantCommand(() -> drivetrain.stopModules()),
       new WaitCommand(0.1),
@@ -183,7 +185,8 @@ public class RobotContainer {
       new InstantCommand(() -> drivetrain.stopModules()),
       new WaitCommand(1.5),
       FiveBallE,
-      new InstantCommand(() -> drivetrain.stopModules())
+      new InstantCommand(() -> drivetrain.stopModules()),
+      new Shoot().withTimeout(2)
     );
 
     return FiveBall;

@@ -68,14 +68,14 @@ public final class Constants {
         public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION = 3;
 
         //Auton constraints
-        public static final double AUTO_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 1.0;
-        public static final double AUTO_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 1.0;
+        public static final double AUTO_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 2.0;
+        public static final double AUTO_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 2.0;
         public static final double AUTO_DRIVE_MAX_ACCELERATION = 3;
         public static final double AUTO_DRIVE_MAX_ANGULAR_ACCELERATION = Math.PI;
 
-        public static final double AUTO_kP_FRONT = 0.8;
-        public static final double AUTO_kP_SIDE = 0.8;
-        public static final double AUTO_kP_TURN = 4;
+        public static final double AUTO_kP_FRONT = 0.4;
+        public static final double AUTO_kP_SIDE = 0.4;
+        public static final double AUTO_kP_TURN = 2;
 
         public static final TrapezoidProfile.Constraints AUTO_TURN_CONTROLLER_CONSTRAINTS = new TrapezoidProfile.Constraints(
                 AUTO_DRIVE_MAX_ANGULAR_SPEED,

@@ -11,8 +11,8 @@ import frc.robot.RobotContainer;
 
 public class AutoAim extends CommandBase {
   public NetworkTable llTable = NetworkTableInstance.getDefault().getTable("limelight");
-  double kS = 0.078;
-  double kP = 0.007;
+  double kS = 0.035;
+  double kP = 0.009;
 
   /** Creates a new AutoAim. */
   public AutoAim() {
@@ -29,7 +29,7 @@ public class AutoAim extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double error = llTable.getEntry("tx").getDouble(0);
+    double error = llTable.getEntry("tx").getDouble(0) - 1;
     double target = llTable.getEntry("tv").getDouble(0);
 
     if(RobotContainer.shooter.getMode() != RobotContainer.shooter.getLowMode()){

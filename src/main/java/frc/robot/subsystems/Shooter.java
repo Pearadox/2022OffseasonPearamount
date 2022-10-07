@@ -62,15 +62,15 @@ public class Shooter extends SubsystemBase {
     leftShooter.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, Constants.TIMEOUT);
     rightShooter.setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 20, Constants.TIMEOUT);
 
-    shooterLerp.addPoint(7.67, ShooterConstants.ShooterAdjust * (4.4 - ShooterConstants.kS)/ ShooterConstants.kV); //4ft
-    shooterLerp.addPoint(3.56, ShooterConstants.ShooterAdjust * (4.54 - ShooterConstants.kS) / ShooterConstants.kV); //5ft
-    shooterLerp.addPoint(-0.46, ShooterConstants.ShooterAdjust * (4.66 - ShooterConstants.kS) / ShooterConstants.kV); //6ft
-    shooterLerp.addPoint(-4.16, ShooterConstants.ShooterAdjust * (4.85 - ShooterConstants.kS) / ShooterConstants.kV); //7ft
-    shooterLerp.addPoint(-7.56, ShooterConstants.ShooterAdjust * (5.6 - ShooterConstants.kS) / ShooterConstants.kV); //8ft
-    shooterLerp.addPoint(-9.66, ShooterConstants.ShooterAdjust * (5.83 - ShooterConstants.kS) / ShooterConstants.kV); //9ft
-    shooterLerp.addPoint(-12.65, ShooterConstants.ShooterAdjust * (6.03 - ShooterConstants.kS) / ShooterConstants.kV); //10ft
-    shooterLerp.addPoint(-14.29, ShooterConstants.ShooterAdjust * (6.13 - ShooterConstants.kS) / ShooterConstants.kV); //11ft
-    shooterLerp.addPoint(-16.21, ShooterConstants.ShooterAdjust * (6.24 - ShooterConstants.kS) / ShooterConstants.kV); //12ft
+    shooterLerp.addPoint(1.04, ShooterConstants.ShooterAdjust * (4.7 - ShooterConstants.kS)/ ShooterConstants.kV); //5ft
+    shooterLerp.addPoint(-2.46, ShooterConstants.ShooterAdjust * (4.87 - ShooterConstants.kS) / ShooterConstants.kV); //6ft
+    shooterLerp.addPoint(-5.36, ShooterConstants.ShooterAdjust * (4.96 - ShooterConstants.kS) / ShooterConstants.kV); //7ft
+    shooterLerp.addPoint(-7.84, ShooterConstants.ShooterAdjust * (5.04 - ShooterConstants.kS) / ShooterConstants.kV); //8ft
+    shooterLerp.addPoint(-9.87, ShooterConstants.ShooterAdjust * (5.12 - ShooterConstants.kS) / ShooterConstants.kV); //9ft
+    shooterLerp.addPoint(-12.07, ShooterConstants.ShooterAdjust * (5.22 - ShooterConstants.kS) / ShooterConstants.kV); //10ft
+    shooterLerp.addPoint(-13.66, ShooterConstants.ShooterAdjust * (5.38 - ShooterConstants.kS) / ShooterConstants.kV); //11ft
+    shooterLerp.addPoint(-15.73, ShooterConstants.ShooterAdjust * (5.65 - ShooterConstants.kS) / ShooterConstants.kV); //12ft
+    shooterLerp.addPoint(-17.18, ShooterConstants.ShooterAdjust * (5.86 - ShooterConstants.kS) / ShooterConstants.kV); //13ft
   }
 
   @Override
