@@ -64,7 +64,7 @@ public class Drivetrain extends SubsystemBase {
 
   private Pigeon2 gyro = new Pigeon2(SwerveConstants.PIGEON_ID);
   private double rates[] = new double[3];
-  private SwerveDriveOdometry odometry = new SwerveDriveOdometry(SwerveConstants.DRIVE_KINEMATICS, new Rotation2d(0));
+  private SwerveDriveOdometry odometry = new SwerveDriveOdometry(SwerveConstants.DRIVE_KINEMATICS, getHeadingRotation2d());
   
   private static final Drivetrain drivetrain = new Drivetrain();
 
@@ -134,6 +134,13 @@ public class Drivetrain extends SubsystemBase {
     odometry.resetPosition(pose, getHeadingRotation2d());
   }
 
+  public void zeroModules(){
+    leftFront.setState(new SwerveModuleState(0.01, new Rotation2d(0)));
+    rightFront.setState(new SwerveModuleState(0.01, new Rotation2d(0)));
+    leftBack.setState(new SwerveModuleState(0.01, new Rotation2d(0)));
+    rightBack.setState(new SwerveModuleState(0.01, new Rotation2d(0)));
+  }
+
   public void setAllMode(boolean brake){
     if(brake){
       leftFront.setBrake(true);
@@ -158,6 +165,10 @@ public class Drivetrain extends SubsystemBase {
 
   public void zeroHeading(){
     gyro.setYaw(0);
+  }
+
+  public void setHeading(Rotation2d angle){
+    gyro.setYaw(angle.getDegrees());
   }
 
   public double getHeading(){

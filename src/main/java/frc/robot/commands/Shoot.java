@@ -22,7 +22,7 @@ public class Shoot extends ParallelCommandGroup {
       new AutoAim().until(() -> Math.abs(RobotContainer.shooter.getSpeed() - RobotContainer.shooter.getTarget()) < 0.5
                           && Math.abs(RobotContainer.shooter.llTable.getEntry("tx").getDouble(0)) < 0.5).withTimeout(2)
                           .andThen(() -> RobotContainer.drivetrain.stopModules()),
-      new InstantCommand(() -> RobotContainer.intake.setDeployed(false)),
+      // new InstantCommand(() -> RobotContainer.intake.setDeployed(false)),
       new WaitCommand(0.5)
         .andThen(new RunCommand(RobotContainer.transport::feederShoot, RobotContainer.transport)) 
     );

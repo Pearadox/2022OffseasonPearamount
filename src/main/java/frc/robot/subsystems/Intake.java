@@ -47,6 +47,7 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Intake Toggle Current", getToggleCurrent());
+    SmartDashboard.putNumber("Intake Current", getIntakeCurrent());
   }
 
   public void intakeIn(double speed){

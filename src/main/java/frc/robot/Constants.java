@@ -96,13 +96,13 @@ public final class Constants {
         public static final int INTAKE_ID = 24;
         public static final int INTAKE_TOGGLE_ID = 25;
 
-        public static final double INTAKE_DEPLOY_HOLD = 0.11;
-        public static final double INTAKE_STOW_HOLD = -0.09;
-        public static final double INTAKE_DEPLOY_SPEED = 0.425;
-        public static final double INTAKE_STOW_SPEED = -0.5;
+        public static final double INTAKE_DEPLOY_HOLD = 0.02;
+        public static final double INTAKE_STOW_HOLD = -0.02;
+        public static final double INTAKE_DEPLOY_SPEED = 1.0;
+        public static final double INTAKE_STOW_SPEED = -1.0;
   
-        public static final double INTAKE_DEPLOY_TIME = 0.57;
-        public static final double INTAKE_STOW_TIME = 0.37;
+        public static final double INTAKE_DEPLOY_TIME = 0.55;
+        public static final double INTAKE_STOW_TIME = 0.85;
     }
 
     public static final class TransportConstants{
@@ -117,8 +117,8 @@ public final class Constants {
         public static final double MAXPERCENT = 0.4;
         public static final double ShooterAdjust = 1; //1.165
         
-        public static final double kS = 0.0; //0.8571
-        public static final double kV = 0.11619;
-        public static final double kP = 0.18798;
+        public static final double kS = 0.0; //0.85049
+        public static final double kV = 0.11404;
+        public static final double kP = 0.2738;
     }
 }
