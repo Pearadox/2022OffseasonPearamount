@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import java.time.Instant;
 import java.util.ArrayList;
 
 import com.pathplanner.lib.PathPlanner;
@@ -163,17 +162,17 @@ public class RobotContainer {
     .andThen(new InstantCommand(() -> drivetrain.stopModules()))
     .andThen(new Shoot().withTimeout(2))
     .andThen(new InstantCommand(() -> transport.stop()))
-    .andThen(makeSwerveCommand("FiveBallA"))
+    .andThen(makeSwerveCommand("FiveBallB"))
     .andThen(new InstantCommand(() -> drivetrain.stopModules()))
-    .andThen(new Shoot().withTimeout(2))
+    .andThen(new Shoot().withTimeout(1.3))
     .andThen(new InstantCommand(() -> transport.stop()))
-    .andThen(makeSwerveCommand("FiveBallA"))
+    .andThen(makeSwerveCommand("FiveBallC"))
     .andThen(new InstantCommand(() -> drivetrain.stopModules()))
     .andThen(new WaitCommand(0.1))
-    .andThen(makeSwerveCommand("FiveBallA"))
+    .andThen(makeSwerveCommand("FiveBallD"))
     .andThen(new InstantCommand(() -> drivetrain.stopModules()))
-    .andThen(new WaitCommand(1.5))
-    .andThen(makeSwerveCommand("FiveBallA"))
+    .andThen(new WaitCommand(1))
+    .andThen(makeSwerveCommand("FiveBallE"))
     .andThen(new InstantCommand(() -> drivetrain.stopModules()))
     .andThen(new Shoot().withTimeout(2))
     .andThen(new InstantCommand(() -> transport.stop()));
