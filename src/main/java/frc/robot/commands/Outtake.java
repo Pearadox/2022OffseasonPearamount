@@ -7,29 +7,28 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class TransportIn extends CommandBase {
-  /** Creates a new TransportIn. */
-  public TransportIn() {
+public class Outtake extends CommandBase {
+  /** Creates a new Outtake. */
+  public Outtake() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.transport);
+    addRequirements(RobotContainer.intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.transport.transportIn();
+    RobotContainer.intake.intakeIn(-0.4);
+    RobotContainer.transport.transportOut();
+    RobotContainer.transport.feederOut();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    RobotContainer.transport.stop();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

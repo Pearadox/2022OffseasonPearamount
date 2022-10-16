@@ -12,7 +12,7 @@ import frc.robot.RobotContainer;
 public class AutoAim extends CommandBase {
   public NetworkTable llTable = NetworkTableInstance.getDefault().getTable("limelight");
   double kS = 0.035;
-  double kP = 0.009;
+  double kP = 0.012;
 
   /** Creates a new AutoAim. */
   public AutoAim() {

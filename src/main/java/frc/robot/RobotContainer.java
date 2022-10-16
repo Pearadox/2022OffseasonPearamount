@@ -27,6 +27,7 @@ import frc.lib.drivers.EForwardableConnections;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.commands.BlinkinState;
 import frc.robot.commands.IntakeHold;
+import frc.robot.commands.Outtake;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.ShooterRampUpVoltage;
 import frc.robot.commands.SwerveDrive;
@@ -54,7 +55,7 @@ public class RobotContainer {
   public static final XboxController controller = new XboxController(0);
   private final JoystickButton resetHeading_B = new JoystickButton(controller, XboxController.Button.kB.value);
   private final JoystickButton toggleMode_A = new JoystickButton(controller, XboxController.Button.kA.value);
-  private final JoystickButton X = new JoystickButton(controller, XboxController.Button.kX.value);
+  private final JoystickButton outtake_X = new JoystickButton(controller, XboxController.Button.kX.value);
   private final JoystickButton lowShoot_Y = new JoystickButton(controller, XboxController.Button.kY.value);
   // private final JoystickButton toggleIntake_LB = new JoystickButton(controller, XboxController.Button.kLeftBumper.value);
   private final JoystickButton shoot_RB = new JoystickButton(controller, XboxController.Button.kRightBumper.value);
@@ -93,8 +94,7 @@ public class RobotContainer {
     .andThen(new RunCommand(() -> transport.feederShoot())))
     .whenReleased(new InstantCommand(() -> shooter.setMode(Mode.kAuto))
     .andThen(new InstantCommand(() -> transport.stop())));
-    // lowShoot_Y.whileHeld(new RunCommand(() -> intake.setToggler(-1.0))).whenReleased(new InstantCommand(() -> intake.setToggler(0)));
-    X.whenPressed(new InstantCommand(() -> blinkin.valueInc()));
+    outtake_X.whileHeld(new Outtake());
     // toggleIntake_LB.whenPressed(new ToggleIntake().withTimeout(0.4));
     shoot_RB.whileHeld(new Shoot())
       .whenReleased(new InstantCommand(() -> transport.stop()));

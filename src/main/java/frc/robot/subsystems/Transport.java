@@ -80,12 +80,12 @@ public class Transport extends SubsystemBase {
   }
 
   public void feederShoot(){
-    topMotor.set(1.0);
+    topMotor.set(0.7);
     feeder.set(ControlMode.PercentOutput, 1);
   }
 
-  public void feederHold(){
-      feeder.set(ControlMode.PercentOutput, 0);
+  public void feederOut(){
+    feeder.set(ControlMode.PercentOutput, -0.8);
   }
 
   public boolean hasBall(){

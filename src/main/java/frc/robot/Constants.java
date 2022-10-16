@@ -119,6 +119,6 @@ public final class Constants {
         
         public static final double kS = 0.0; //0.85049
         public static final double kV = 0.11404;
-        public static final double kP = 0.2738;
+        public static final double kP = 0.1; //0.2738
     }
 }
